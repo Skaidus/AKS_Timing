@@ -1,37 +1,26 @@
-public class AKSTimingBit {
+public class BitTiming {
 
     public double[] getCumulativeSums() {
         return cumulativeSums;
-    }
-
-    public void setCumulativeSums(double[] cumulativeSums) {
-        this.cumulativeSums = cumulativeSums;
     }
 
     public int[] getIterations() {
         return iterations;
     }
 
-    public void setIterations(int[] iterations) {
-        this.iterations = iterations;
-    }
-
     public int getBits() {
         return bits;
     }
 
-    public void setBits(int bits) {
-        this.bits = bits;
-    }
 
     double[] cumulativeSums;
     int[] iterations;
     int bits;
 
-    public AKSTimingBit(int bits){
+    public BitTiming(int bits){
         this.bits = bits;
         cumulativeSums = new double[6]; // [paso1, paso2, paso3, paso4, paso5, total]
-        iterations = new int[6];
+        iterations = new int[6]; // [paso1, paso2, paso3, paso4, paso5, total]
     }
 
     public void addMeasures(double[] measures,  int final_measure){
@@ -40,7 +29,7 @@ public class AKSTimingBit {
             iterations[i-1]++;
         }
         if(final_measure!=0){
-            cumulativeSums[5] = measures[final_measure] - measures[0];
+            cumulativeSums[5] += (measures[final_measure] - measures[0]);
             iterations[5]++;
         }
     }

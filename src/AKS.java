@@ -1,5 +1,4 @@
 import java.math.BigInteger;
-import java.lang.Thread;
 
 
 /**
@@ -10,25 +9,15 @@ import java.lang.Thread;
  * @author Vincent
  *
  */
-public class AKS extends Thread
+public class AKS
 {
-
-    static boolean verbose = false;
 
     public double[] getMeasures() {
         return measures;
     }
 
-    public void setMeasures(double[] measures) {
-        this.measures = measures;
-    }
-
     public int getLast_measure() {
         return last_measure;
-    }
-
-    public void setLast_measure(int last_measure) {
-        this.last_measure = last_measure;
     }
 
 
@@ -241,7 +230,7 @@ public class AKS extends Thread
             return BigInteger.ONE.negate();
         else
         {
-            if (verbose) System.out.println(n + "^" + k + " mod " + r + " = " + result);
+            //if (verbose) System.out.println(n + "^" + k + " mod " + r + " = " + result);
             return k;
         }
     }
