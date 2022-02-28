@@ -5,14 +5,13 @@ public class AKSTiming {
 
     public AKSTiming() throws Exception{
         log = new FileWriter[6];
-        log[0] = new FileWriter("paso1.csv", false); // measures[1]-measures[0]
-        log[1] = new FileWriter("paso2.csv", false); // measures[2]-measures[1]
-        log[2] = new FileWriter("paso3.csv", false); // measures[3]-measures[2]
-        log[3] = new FileWriter("paso4.csv", false); // measures[4]-measures[3]
-        log[4] = new FileWriter("paso5.csv", false); // end-measures[4]
+        for(int i = 0; i<5; i++){
+            log[i] = new FileWriter("paso"+(i+1)+".csv", false);
+        }
         log[5] = new FileWriter("AKS.csv", false); // end - measures[0]
-
-
+        for(int i = 0; i<6; i++) {
+            log[i].write("n,seconds\n");
+        }
     }
 
     public void closeFiles() throws Exception
