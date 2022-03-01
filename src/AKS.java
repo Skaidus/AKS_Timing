@@ -185,6 +185,8 @@ public class AKS
      * @param r BigInteger to calculate the totient of
      * @return phi(r)--number of integers less than r that are coprime
      */
+
+
     BigInteger totient(BigInteger n)
     {
         BigInteger result = n;
@@ -204,6 +206,27 @@ public class AKS
         return result;
 
     }
+
+    /*
+    int-like representation of totient
+
+    int totient(int n){
+        int result = n;
+        for(int i = 2; i<n; i++){
+            if(n%i==0){
+                result = result - (result/i);
+            }
+            while(n%i == 0){
+                n = n / i;
+            }
+        }
+        if(n>1){
+            result = result - (result/n);
+        }
+        return result;
+    }
+     */
+
 
     /***
      * Calculate the multiplicative order of n modulo r
