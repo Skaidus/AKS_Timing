@@ -1,43 +1,47 @@
 
 // Java Program to find n'th fibonacci Number
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.*;
 import java.io.FileWriter;
 
 class GCDTiming {
 
+
     static int fib(int n) {
         double phi = (1 + Math.sqrt(5)) / 2;
-        return (int) Math.round(Math.pow(phi, n)
-                / Math.sqrt(5));
-    }
-
-    static int gcd(int p, int q) {
-        if (q == 0) return p;
-        else return gcd(q, p % q);
-    }
+        return (int) Math.round(Math.pow(phi, n) / Math.sqrt(5));}
 
     // Driver Code
     public static void main(String[] args) throws IOException {
         FileWriter file = new FileWriter("gcd_worst.csv", false );
         file.write("n,seconds\n");
-        int n = 1;
+
         int minBits = Integer.parseInt(args[0]);
         int maxBits = Integer.parseInt(args[1]);
 
+        BigInteger fib_n = BigInteger.ONE;
+        BigInteger fib_n_1 = BigInteger.ZERO;
+        BigInteger temp;
+
         for(int i = minBits; i <maxBits; i+=2){
-            while(Integer.bitCount(fib(n+1))<i){
-                n++;
+
+            temp = fib_n.add(fib_n_1);
+
+            while(temp.bitCount()<i){
+                fib_n_1 = fib_n;
+                fib_n = temp;
+                temp = fib_n.add(fib_n_1);
             }
-            int cumsum = 0;
+            double cumsum = 0;
             double before, after;
             for(int j=0; j<60; j++){
                 before = System.currentTimeMillis();
-                gcd(fib(n), fib(n-1));
+                fib_n.gcd(fib_n_1);
                 after = System.currentTimeMillis();
                 cumsum += (after-before);
             }
-            file.write(i+","+(cumsum/(60*1000))+"\n");
+            file.write(i+","+(cumsum/(60000.0))+"\n");
         }
 
         file.close();

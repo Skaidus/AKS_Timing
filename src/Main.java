@@ -30,27 +30,27 @@ public class Main
         SecureRandom r = new SecureRandom();
         AKSTiming myLog = new AKSTiming();
 
-
-        for( int bits = minBits; bits <= maxBits; bits += 2 )
-        {
-            BitTiming bitLog = new BitTiming(bits);
-
-            for( int i = 0; i < iterations; )
+            for( int bits = minBits; bits <= maxBits; bits += 2 )
             {
-                BigInteger n = BigInteger.probablePrime(bits, r);
-                AKS a = new AKS(n);
-                a.addTime();
+                BitTiming bitLog = new BitTiming(bits);
 
-                if(a.isPrime()){
+                for( int i = 0; i < iterations; )
+                {
+                    BigInteger n = BigInteger.probablePrime(bits, r);
+                    AKS a = new AKS(n);
                     a.addTime();
-                    bitLog.addMeasures(a.getMeasures(), a.getLast_measure());
-                    i++;
+
+                    if(a.isPrime()){
+                        a.addTime();
+                        bitLog.addMeasures(a.getMeasures(), a.getLast_measure());
+                        i++;
+                    }
                 }
+
+                myLog.toFiles(bitLog.getCumulativeSums(), bitLog.getIterations(), bitLog.getBits());
+
             }
 
-            myLog.toFiles(bitLog.getCumulativeSums(), bitLog.getIterations(), bitLog.getBits());
-
-        }
 
         myLog.closeFiles();
 
