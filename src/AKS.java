@@ -160,20 +160,26 @@ public class AKS
             Poly p = new Poly(BigInteger.ONE,1).plus(polyI).modPow(n, modPoly, n);
             if( !outcome.equals(p) )
             {
-                //if (verbose) System.out.println( "(x+" + i + ")^" + n + " mod (x^" + r + " - 1, " + n + ") = " + outcome);
-                //if (verbose) System.out.println( "x^" + n + " + " + i + " mod (x^" + r + " - 1, " + n + ") = " + p);
-                // if (verbose) System.out.println("(x+i)^" + n + " = x^" + n + " + " + i + " (mod x^" + r + " - 1, " + n + ") failed");
                 factor = BigInteger.valueOf(i);
                 n_isprime = false;
                 return n_isprime;
             }
-            //else
-            //if (verbose) System.out.println("(x+" + i + ")^" + n + " = x^" + n + " + " + i + " mod (x^" + r + " - 1, " + n + ") true");
+
         }
 
         n_isprime = true;
         return n_isprime;
     }
+
+    /*
+    int limit = (int) sqrt(totient)*this.log()
+    Poly modPoly = X^r - 1
+    Poly partialOutcome = X^n (mod X^r-1, n)
+    for(int i=1; i<=limit; i++){
+        outcome = partialOutcome + i (mod X^r-1, n)
+        p =
+    }
+     */
 
 
     /***
