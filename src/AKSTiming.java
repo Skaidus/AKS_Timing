@@ -1,32 +1,30 @@
 import java.io.FileWriter;
 
 public class AKSTiming {
-    FileWriter[] log;
+    int initbits;
 
-    public AKSTiming() throws Exception{
-        log = new FileWriter[6];
+    public AKSTiming(int initbits) throws Exception{
+        this.initbits = initbits;
         for(int i = 0; i<5; i++){
-            log[i] = new FileWriter("paso"+(i+1)+".csv", false);
+            FileWriter log = new FileWriter("paso"+(i+1)+(initbits)+".csv", false);
+            log.write("n,seconds\n");
+            log.close();
         }
-        log[5] = new FileWriter("AKS.csv", false); // end - measures[0]
-        for(int i = 0; i<6; i++) {
-            log[i].write("n,seconds\n");
-        }
+        FileWriter log = new FileWriter("AKS"+(initbits)+".csv", false); // end - measures[0]
+        log.write("n,seconds\n");
+        log.close();
     }
 
-    public void closeFiles() throws Exception
-    {
-        for(int i=0; i<6;i++) {
-            log[i].close();
-        }
-    }
 
     public void toFiles(double[] measures, int[] iterations, int bits) throws Exception{
-        for(int i=0; i<6; i++){
-            if(iterations[i]>0){
-                this.log[i].write(toLine(bits, (measures[i])/(1000*iterations[i])));
-            }
+        for(int i = 0; i<5; i++){
+            FileWriter log = new FileWriter("paso"+(i+1)+(initbits)+".csv", true);
+            log.write(toLine(bits, (measures[i])/(1000*iterations[i])));
+            log.close();
         }
+        FileWriter log = new FileWriter("AKS"+(initbits)+".csv", true); // end - measures[0]
+        log.write(toLine(bits, (measures[5])/(1000*iterations[5])));
+        log.close();
     }
 
     private String toLine(int bits, double measure ){

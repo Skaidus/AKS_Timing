@@ -24,7 +24,7 @@ public class AKSHeuristicsTiming
         int maxBits = Integer.parseInt(args[1]);
 
         SecureRandom r = new SecureRandom();
-        AKSTiming myLog = new AKSTiming();
+        AKSTiming myLog = new AKSTiming(minBits);
 
 
         for( int bits = minBits; bits <= maxBits; bits += 2 )
@@ -47,8 +47,6 @@ public class AKSHeuristicsTiming
             myLog.toFiles(bitLog.getCumulativeSums(), bitLog.getIterations(), bitLog.getBits());
 
         }
-
-        myLog.closeFiles();
 
     }
 
