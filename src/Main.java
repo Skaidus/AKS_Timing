@@ -28,7 +28,7 @@ public class Main
         int maxBits = Integer.parseInt(args[1]);
 
         SecureRandom r = new SecureRandom();
-        AKSTiming myLog = new AKSTiming();
+        AKSTiming myLog = new AKSTiming(minBits);
 
             for( int bits = minBits; bits <= maxBits; bits += 2 )
             {
@@ -51,8 +51,6 @@ public class Main
 
             }
 
-
-        myLog.closeFiles();
 
     }
 
